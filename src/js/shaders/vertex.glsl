@@ -1,13 +1,9 @@
 uniform float time;
 varying vec2 vUv;
-
-void main(){
-    vec3 newPosition = position;
-    float PI = 3.1415925;
-
-    newPosition.z += 0.05 * sin((newPosition.x + 0.5 + time / 10.) * 2. * PI); 
-    
-    vUv = uv;
-    
-    gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition, 1.);
+varying vec3 vPosition;
+uniform vec2 pixels;
+float PI = 3.141592653589793238;
+void main() {
+  vUv = uv;
+  gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
 }

@@ -3,13 +3,12 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import fragment from './shaders/fragment.glsl';
 import vertex from './shaders/vertex.glsl';
 
-import oceanTexture from '../img/ocean.jpg';
-
 export default class Sketch {
   constructor(options) {
+    this.scene = new THREE.Scene();
+
     this.time = 0;
     this.container = options.dom;
-    this.scene = new THREE.Scene();
 
     this.width = this.container.offsetWidth;
     this.height = this.container.offsetHeight;
@@ -21,9 +20,10 @@ export default class Sketch {
       100
     );
 
-    this.camera.position.z = 1;
+    this.camera.position.z = 2;
 
     this.renderer = new THREE.WebGLRenderer({ antialias: true });
+    this.renderer.setClearColor(0xeeeeee, 1);
 
     this.container.appendChild(this.renderer.domElement);
 
@@ -48,11 +48,10 @@ export default class Sketch {
   }
 
   addObjects() {
-    this.geometry = new THREE.PlaneGeometry(1, 1, 40, 40);
+    this.geometry = new THREE.PlaneGeometry(1, 1, 10, 10);
     this.material = new THREE.ShaderMaterial({
       uniforms: {
         time: { value: 0 },
-        oceanTexture: { value: new THREE.TextureLoader().load(oceanTexture) },
       },
       side: THREE.DoubleSide,
       fragmentShader: fragment,
